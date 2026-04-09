@@ -1,0 +1,13 @@
+# Buổi 9: **Branches - cách làm việc với nhiều nhánh trong Git**
+
+Trong 1 Repo thì có một nhánh chính là Main hay là Master nhưng chúng ta có thể đẻ ra thêm những nhánh riêng để làm những biến đổi khác trong công việc.
+
+Trong một dự án thực tế thì sẽ có nhiều người tham gia, có nhiều thử nghiệm (cần có hướng đi khác)
+
+Có thể quay lại hay tiếp tục một cách dễ dàng trên các nhánh trong dự án
+
+Các câu lệnh:
+
+- git branch <branch_name> : tạo nhánh mới
+- git checkout <branch_name> : chuyển sang nhánh khác
+- git branch -l : xem nhánh hiện tại đang ở
