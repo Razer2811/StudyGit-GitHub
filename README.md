@@ -1,0 +1,2 @@
+Đây là các file docx chứa nội dung quá trình mình tự học GIT&GITHUB của Thầy TITV để biết thêm công cụ này. 
+Mình thấy khá là trễ để học cái này nhưng mình nghĩ cứ bắt dầu đi dù muộn thì mình vẫn cũng có sự bắt đầu là tốt đối với mình rồi.
