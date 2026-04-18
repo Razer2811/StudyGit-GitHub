@@ -12,3 +12,71 @@ trước rebase :
 A --- B --- C   (master)
        \
         D --- E (feature)
+Nếu rebase:
+A -- B -- C -- D' -- E'
+D' và E' là bản sao mới của D và E
+commit hash sẽ thay đổi
+nhánh trở nên tuyến tính, không có nhánh rẽ
+Về bản chất, rebase là:
+
+old commits -> copy -> apply on new base
+
+Nó không di chuyển commit cũ, mà tạo commit mới tương đương.
+Các dạng rebase phổ biến:
+
+Rebase nhánh hiện tại lên nhánh khác
+git rebase master
+Rebase khi đang ở nhánh khác
+git rebase master feature
+
+nghĩa là: lấy feature đặt lên master.
+
+Interactive rebase
+git rebase -i HEAD~3
+
+Dùng để:
+
+đổi tên commit
+gộp commit
+xóa commit
+đổi thứ tự commit
+
+Điểm khác biệt giữa merge và rebase về lý thuyết:
+
+merge: giữ nguyên lịch sử, thêm một commit nối
+rebase: viết lại lịch sử để nhìn như chưa từng tách nhánh
+
+Merge:
+
+A---B---C------M
+     \        /
+      D---E--F
+
+Rebase:
+
+A---B---C---D'---E'---F'
+
+*Ưu điểm của rebase:
+
+lịch sử gọn, dễ đọc
+thuận tiện trước khi push hoặc tạo pull request
+tránh commit merge thừa
+
+*Nhược điểm:
+
+thay đổi hash commit
+nguy hiểm nếu commit đã được push và người khác đang dùng
+dễ gây xung đột khi rebase dài
+
+Quy tắc thường dùng:
+
+Nhánh cá nhân, chưa push → nên rebase
+Nhánh chung, đã push → cẩn thận hoặc dùng merge
+
+Ví dụ sau rebase, vì commit đã đổi hash, thường phải:
+
+git push --force
+
+hoặc an toàn hơn:
+
+git push --force-with-lease
