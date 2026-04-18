@@ -1,1 +1,14 @@
-Buoi 11 hoc GIT 
+# Buổi 11 : **Git Rebase - tái cơ sở cho một nhánh trong Git**
+
+git rebase : tái cơ sở nền tảng cho một nhánh
+
+Các lệnh:
+
+- git rebase < tên nhánh >
+- git rebase --continue
+- git recase --skip
+
+trước rebase :
+A --- B --- C   (master)
+       \
+        D --- E (feature)
