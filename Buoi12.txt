@@ -1,0 +1,112 @@
+Buổi 12 : Cách xóa nhánh trong GIT
+git branch -d <tên nhánh>
+
+tại sao cần thiết xóa nhánh : chúng ta làm việc trên 2 nhánh sau khi chúng ta gộp 2 nhánh lại thành một thì vẫn tồn tại nhánh lẻ sau khi gộp và chúng ta muốn xóa nó đi không cần thiết nữa.
+
+Trong Git có 2 loại nhánh cần phân biệt:
+
+- Nhánh ở máy của bạn (local branch)
+- Nhánh trên GitHub/GitLab/server (remote branch)
+
+## Xóa nhánh local
+
+Xem danh sách nhánh:
+
+```
+git branch
+```
+
+Xóa nhánh đã được merge:
+
+```
+git branch-d ten_nhanh
+```
+
+Ví dụ:
+
+```
+git branch-d feature-login
+```
+
+Nếu nhánh chưa được merge nhưng bạn vẫn muốn xóa cưỡng bức:
+
+```
+git branch-D ten_nhanh
+```
+
+Ví dụ:
+
+```
+git branch-D feature-login
+```
+
+- `D` = ép xóa, kể cả còn commit chưa merge.
+
+Lưu ý: bạn không thể xóa nhánh mà mình đang đứng trên đó. Nếu đang ở nhánh cần xóa thì phải chuyển sang nhánh khác trước:
+
+```
+git switch master
+```
+
+hoặc
+
+```
+git checkout master
+```
+
+rồi mới xóa.
+
+---
+
+## Xóa nhánh trên remote (GitHub)
+
+```
+git push origin--delete ten_nhanh
+```
+
+Ví dụ:
+
+```
+git push origin--delete feature-login
+```
+
+Sau đó nếu muốn cập nhật danh sách nhánh remote đã bị xóa:
+
+```
+git fetch--prune
+```
+
+hoặc:
+
+```
+git remote prune origin
+```
+
+---
+
+## Ví dụ đầy đủ
+
+```
+git switch master
+git branch-d feature-login
+git push origin--delete feature-login
+```
+
+---
+
+## Khi nào dùng `d` và khi nào dùng `D`
+
+- `d`: an toàn, chỉ xóa khi nhánh đã merge
+- `D`: dùng khi bạn chắc chắn không cần commit trong nhánh đó nữa
+
+Ví dụ nếu Git báo:
+
+```
+error: The branch'feature-login' is not fully merged.
+```
+
+thì nghĩa là phải dùng:
+
+```
+git branch-D feature-login
+```Buổi 12 : Cách xóa nhánh trong GIT
