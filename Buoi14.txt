@@ -1,0 +1,118 @@
+git revert dùng để hoàn tác một commit đã có, nhưng không xóa commit đó khỏi lịch sử. Thay vào đó, Git tạo ra một commit mới có tác dụng ngược lại với commit cũ.
+
+Ví dụ lịch sử:
+
+A -- B -- C -- D (HEAD)
+
+Nếu commit C thêm dòng:
+
+Hello
+
+thì khi chạy:
+
+git revert C
+
+Git sẽ tạo một commit mới, ví dụ E, để xóa lại dòng Hello:
+
+A -- B -- C -- D -- E (HEAD)
+
+Trong đó E là "đảo ngược" của C.
+
+Khác với git reset
+
+git reset làm thay đổi lịch sử commit:
+
+A -- B -- C -- D
+git reset --hard B
+
+thành:
+
+A -- B
+
+Các commit C, D biến mất.
+
+Còn git revert giữ nguyên lịch sử:
+
+A -- B -- C -- D -- E
+
+nên an toàn hơn khi đã push lên remote.
+
+Khi nào nên dùng git revert
+
+Nên dùng khi:
+
+Bạn đã push commit lên remote
+Có nhiều người cùng làm việc
+Muốn hoàn tác nhưng vẫn giữ lịch sử rõ ràng
+
+Ví dụ nếu đã push một commit lỗi lên GitHub, bạn không nên reset rồi push --force, vì sẽ làm thay đổi lịch sử của người khác. Thay vào đó dùng:
+
+git revert <commit-id>
+git push
+Cách hoạt động
+
+Giả sử commit C:
+
+tạo file a.txt
+thêm dòng vào b.txt
+
+Khi revert C, Git sẽ:
+
+xóa file a.txt
+xóa dòng đã thêm trong b.txt
+
+tức là thực hiện hành động ngược lại.
+
+Revert commit gần nhất
+git revert HEAD
+
+HEAD là commit hiện tại.
+
+Revert nhiều commit
+git revert HEAD~2..HEAD
+
+Git sẽ lần lượt tạo commit đảo ngược cho các commit trong khoảng đó.
+
+Revert nhưng chưa commit ngay
+git revert --no-commit <commit-id>
+
+Git sẽ áp dụng thay đổi đảo ngược vào file nhưng chưa tạo commit, để bạn sửa tiếp rồi tự commit.
+
+Khi bị conflict
+
+Nếu commit cần revert liên quan đến các phần đã thay đổi sau này, Git có thể báo conflict.
+
+Ví dụ:
+
+git revert 123abc
+
+Git báo conflict, bạn sửa file rồi chạy:
+
+git add .
+git revert --continue
+
+Ngoài ra còn:
+
+git revert --abort
+
+để hủy revert đang làm dở.
+
+git revert --skip
+
+để bỏ qua commit đang revert.
+
+Tóm tắt
+Lệnh	Ý nghĩa
+git revert <id>	Tạo commit mới để hoàn tác commit cũ
+git revert HEAD	Hoàn tác commit mới nhất
+git revert --no-commit <id>	Hoàn tác nhưng chưa commit
+git revert --continue	Tiếp tục sau khi sửa conflict
+git revert --abort	Hủy revert
+git revert --skip	Bỏ qua commit đang revert
+
+Nói ngắn gọn:
+
+reset = xóa lịch sử
+revert = giữ lịch sử, thêm commit ngược lại
+
+Vì vậy git revert thường được dùng nhiều hơn trong dự án nhóm.
